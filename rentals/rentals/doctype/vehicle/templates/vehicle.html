@@ -1,0 +1,473 @@
+{% extends "templates/web.html" %}
+
+{% block page_content %}
+
+<style>
+
+    * {
+        box-sizing: border-box;
+    }
+
+    body {
+        margin: 0;
+        background: #f5f6f8;
+        font-family: Arial, Helvetica, sans-serif;
+        color: #111827;
+    }
+
+    .vehicle-page {
+        max-width: 1150px;
+        margin: 45px auto;
+        padding: 0 20px 60px;
+    }
+
+    /* VEHICLE CARD */
+
+    .vehicle-card {
+        background: white;
+        border-radius: 24px;
+        overflow: hidden;
+        box-shadow: 0 10px 35px rgba(0, 0, 0, 0.08);
+    }
+
+    /* VEHICLE IMAGE */
+
+    .vehicle-image {
+        width: 100%;
+        height: 500px;
+        overflow: hidden;
+        background: #e5e7eb;
+    }
+
+    .vehicle-image img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        display: block;
+    }
+
+    /* DETAILS */
+
+    .vehicle-details {
+        padding: 35px 40px 40px;
+    }
+
+    .vehicle-title {
+        font-size: 38px;
+        font-weight: 700;
+        margin: 0 0 10px;
+        color: #111827;
+    }
+
+    .vehicle-subtitle {
+        color: #6b7280;
+        font-size: 16px;
+        margin-bottom: 30px;
+    }
+
+    /* DETAILS GRID */
+
+    .details-grid {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 18px;
+        margin-bottom: 35px;
+    }
+
+    .detail-box {
+        background: #f8fafc;
+        border: 1px solid #e5e7eb;
+        border-radius: 14px;
+        padding: 20px;
+    }
+
+    .detail-label {
+        font-size: 13px;
+        color: #6b7280;
+        margin-bottom: 7px;
+    }
+
+    .detail-value {
+        font-size: 18px;
+        font-weight: 600;
+        color: #111827;
+    }
+
+    /* COLOR */
+
+    .color-value {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+    }
+
+    .color-circle {
+        width: 24px;
+        height: 24px;
+        border-radius: 50%;
+        border: 2px solid #d1d5db;
+        display: inline-block;
+        flex-shrink: 0;
+    }
+
+    /* BOOK BUTTON */
+
+    .book-section {
+        display: flex;
+        justify-content: center;
+        padding-top: 5px;
+    }
+
+    .book-button {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        gap: 10px;
+
+        width: 100%;
+        max-width: 350px;
+        height: 58px;
+
+        border: none;
+        border-radius: 13px;
+
+        background: linear-gradient(
+            135deg,
+            #2563eb,
+            #7c3aed
+        );
+
+        color: white !important;
+
+        font-size: 17px;
+        font-weight: 700;
+
+        text-decoration: none !important;
+
+        cursor: pointer;
+
+        transition: all 0.2s ease;
+    }
+
+    .book-button:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 10px 25px rgba(37, 99, 235, 0.25);
+        color: white !important;
+        text-decoration: none !important;
+    }
+
+    /* RESPONSIVE */
+
+    @media (max-width: 800px) {
+
+        .vehicle-page {
+            margin: 20px auto;
+        }
+
+        .vehicle-image {
+            height: 300px;
+        }
+
+        .vehicle-details {
+            padding: 25px;
+        }
+
+        .vehicle-title {
+            font-size: 30px;
+        }
+
+        .details-grid {
+            grid-template-columns: 1fr;
+        }
+
+    }
+
+</style>
+
+
+<div class="vehicle-page">
+
+    <div class="vehicle-card">
+
+
+        <!-- =========================
+             VEHICLE IMAGE
+        ========================== -->
+
+        <div class="vehicle-image">
+
+            {% if doc.vehicle_image %}
+
+                <img
+                    src="{{ doc.vehicle_image }}"
+                    alt="{{ doc.model or doc.name }}"
+                >
+
+            {% else %}
+
+                <div style="
+                    width:100%;
+                    height:100%;
+                    display:flex;
+                    align-items:center;
+                    justify-content:center;
+                    color:#6b7280;
+                    font-size:20px;
+                ">
+                    No Vehicle Image Available
+                </div>
+
+            {% endif %}
+
+        </div>
+
+
+        <!-- =========================
+             VEHICLE DETAILS
+        ========================== -->
+
+        <div class="vehicle-details">
+
+
+            <!-- VEHICLE TITLE -->
+
+            <h1 class="vehicle-title">
+                {{ doc.model or doc.name }}
+            </h1>
+
+
+            <!-- MAKE -->
+
+            <div class="vehicle-subtitle">
+                {{ doc.make or 'Premium Vehicle' }}
+            </div>
+
+
+            <!-- =========================
+                 DETAILS
+            ========================== -->
+
+            <div class="details-grid">
+
+
+                <!-- MAKE -->
+
+                <div class="detail-box">
+
+                    <div class="detail-label">
+                        Make
+                    </div>
+
+                    <div class="detail-value">
+                        {{ doc.make or '—' }}
+                    </div>
+
+                </div>
+
+
+                <!-- MODEL -->
+
+                <div class="detail-box">
+
+                    <div class="detail-label">
+                        Model
+                    </div>
+
+                    <div class="detail-value">
+                        {{ doc.model or '—' }}
+                    </div>
+
+                </div>
+
+
+                <!-- YEAR -->
+
+                <div class="detail-box">
+
+                    <div class="detail-label">
+                        Year
+                    </div>
+
+                    <div class="detail-value">
+                        {{ doc.year or '—' }}
+                    </div>
+
+                </div>
+
+
+                <!-- LICENSE PLATE -->
+
+                <div class="detail-box">
+
+                    <div class="detail-label">
+                        License Plate
+                    </div>
+
+                    <div class="detail-value">
+                        {{ doc.license_plate or '—' }}
+                    </div>
+
+                </div>
+
+
+                <!-- COLOR -->
+
+                <div class="detail-box">
+
+                    <div class="detail-label">
+                        Color
+                    </div>
+
+                    <div class="detail-value color-value">
+
+
+                        {% if doc.color == "Black" %}
+
+                            <span
+                                class="color-circle"
+                                style="background-color: black;"
+                            ></span>
+
+                        {% elif doc.color == "White" %}
+
+                            <span
+                                class="color-circle"
+                                style="background-color: white;"
+                            ></span>
+
+                        {% elif doc.color == "Red" %}
+
+                            <span
+                                class="color-circle"
+                                style="background-color: red;"
+                            ></span>
+
+                        {% elif doc.color == "Blue" %}
+
+                            <span
+                                class="color-circle"
+                                style="background-color: blue;"
+                            ></span>
+
+                        {% elif doc.color == "Green" %}
+
+                            <span
+                                class="color-circle"
+                                style="background-color: green;"
+                            ></span>
+
+                        {% elif doc.color == "Yellow" %}
+
+                            <span
+                                class="color-circle"
+                                style="background-color: yellow;"
+                            ></span>
+
+                        {% elif doc.color == "Orange" %}
+
+                            <span
+                                class="color-circle"
+                                style="background-color: orange;"
+                            ></span>
+
+                        {% elif doc.color == "Silver" %}
+
+                            <span
+                                class="color-circle"
+                                style="background-color: silver;"
+                            ></span>
+
+                        {% elif doc.color == "Grey" %}
+
+                            <span
+                                class="color-circle"
+                                style="background-color: grey;"
+                            ></span>
+
+                        {% elif doc.color == "Gray" %}
+
+                            <span
+                                class="color-circle"
+                                style="background-color: gray;"
+                            ></span>
+
+                        {% elif doc.color == "Brown" %}
+
+                            <span
+                                class="color-circle"
+                                style="background-color: brown;"
+                            ></span>
+
+                        {% elif doc.color == "Purple" %}
+
+                            <span
+                                class="color-circle"
+                                style="background-color: purple;"
+                            ></span>
+
+                        {% endif %}
+
+
+                        {{ doc.color or '—' }}
+
+                    </div>
+
+                </div>
+
+
+                <!-- CAR -->
+
+                <div class="detail-box">
+
+                    <div class="detail-label">
+                        Car
+                    </div>
+
+                    <div class="detail-value">
+                        {{ doc.car or '—' }}
+                    </div>
+
+                </div>
+
+
+                <!-- ROUTE -->
+
+                <div class="detail-box">
+
+                    <div class="detail-label">
+                        Route
+                    </div>
+
+                    <div class="detail-value">
+                        {{ doc.route or '—' }}
+                    </div>
+
+                </div>
+
+
+            </div>
+
+
+            <!-- =========================
+                 BOOK A RIDE BUTTON
+            ========================== -->
+
+            <div class="book-section">
+
+                <a
+                    href="/order-a-ride/"
+                    class="book-button"
+                >
+                    🚗 Book a Ride
+                </a>
+
+            </div>
+
+
+        </div>
+
+    </div>
+
+</div>
+
+{% endblock %}

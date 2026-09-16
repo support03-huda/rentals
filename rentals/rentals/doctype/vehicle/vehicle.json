@@ -1,6 +1,7 @@
 {
  "actions": [],
  "allow_bulk_edit": 1,
+ "allow_guest_to_view": 1,
  "allow_import": 1,
  "allow_rename": 1,
  "autoname": "autoincrement",
@@ -11,10 +12,13 @@
   "make",
   "model",
   "year",
+  "is_published",
+  "vehicle_image",
   "column_break_r0t5",
   "license_plate",
   "color",
-  "car"
+  "car",
+  "route"
  ],
  "fields": [
   {
@@ -56,12 +60,30 @@
    "fieldname": "car",
    "fieldtype": "Data",
    "label": "Car"
+  },
+  {
+   "default": "0",
+   "fieldname": "is_published",
+   "fieldtype": "Check",
+   "label": "is published?"
+  },
+  {
+   "fieldname": "route",
+   "fieldtype": "Data",
+   "label": "Route"
+  },
+  {
+   "fieldname": "vehicle_image",
+   "fieldtype": "Attach Image",
+   "label": "Vehicle Image"
   }
  ],
  "grid_page_length": 50,
+ "has_web_view": 1,
  "index_web_pages_for_search": 1,
+ "is_published_field": "is_published",
  "links": [],
- "modified": "2026-09-12 16:16:11.715270",
+ "modified": "2026-09-15 16:19:57.766564",
  "modified_by": "Administrator",
  "module": "Rentals",
  "name": "Vehicle",
@@ -81,6 +103,7 @@
    "write": 1
   }
  ],
+ "route": "cars",
  "row_format": "Dynamic",
  "rows_threshold_for_grid_search": 20,
  "show_title_field_in_link": 1,
